@@ -5,8 +5,6 @@
   let intervalHandle = null
   function mainLoop() {
     if (document.location.href !== myChannelUrl) {
-      clearInterval(intervalHandle)
-      intervalHandle = null
       return
     }
 
@@ -37,5 +35,5 @@
     audioformsg.autoplay = true
   }
 
-  intervalHandle = setInterval(mainLoop, 2000)
+  intervalHandle = setInterval(mainLoop, 4000)
 })()
