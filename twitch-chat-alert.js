@@ -45,5 +45,5 @@
     audioformsg.autoplay = true
   }
 
-  intervalHandle = setInterval(mainLoop, 4000)
+  intervalHandle = setInterval(mainLoop, 1000)
 })()
