@@ -48,7 +48,7 @@ function chatSoundAlert() {
   })
 
   if (gotNewMessage) {
-    console.log("new message")
+    debug("new message")
     playBell()
   }
 }
