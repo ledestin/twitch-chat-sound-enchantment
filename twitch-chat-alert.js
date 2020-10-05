@@ -11,6 +11,7 @@
   const processedClass = ".pancake-processed"
   const myChannelUrl = "https://www.twitch.tv/pancakesummer"
   const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
+  const chatPollDelay = 1000
 
   let intervalHandle = null
   function mainLoop() {
@@ -45,5 +46,5 @@
     audioformsg.autoplay = true
   }
 
-  intervalHandle = setInterval(mainLoop, 1000)
+  intervalHandle = setInterval(mainLoop, chatPollDelay)
 })()
