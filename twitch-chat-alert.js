@@ -1,3 +1,12 @@
+// ==UserScript==
+// @name     Twitch Chat Message Alerts
+// @description Play sound, when there are new messages on your Twitch channel
+// @namespace https://rubyclarity.com
+// @version  1
+// @grant    none
+// @include      http*://www.twitch.tv/pancakesummer
+// ==/UserScript==
+
 (function() {
   const processedClass = ".pancake-processed"
   const myChannelUrl = "https://www.twitch.tv/pancakesummer"
