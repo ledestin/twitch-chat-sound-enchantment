@@ -7,44 +7,42 @@
 // @include      http*://www.twitch.tv/pancakesummer
 // ==/UserScript==
 
-(function() {
-  const processedClass = ".pancake-processed"
-  const myChannelUrl = "https://www.twitch.tv/pancakesummer"
-  const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
-  const chatPollDelay = 1000
+const processedClass = ".pancake-processed"
+const myChannelUrl = "https://www.twitch.tv/pancakesummer"
+const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
+const chatPollDelay = 1000
 
-  let intervalHandle = null
-  function mainLoop() {
-    if (document.location.href !== myChannelUrl) {
+let intervalHandle = null
+function mainLoop() {
+  if (document.location.href !== myChannelUrl) {
+    return
+  }
+
+  chatSoundAlert()
+}
+
+function chatSoundAlert() {
+  let gotNewMessage = false
+
+  const messages = document.querySelectorAll(".chat-line__message")
+  messages.forEach(message => {
+    if (message.classList.contains(processedClass))
       return
-    }
 
-    chatSoundAlert()
+    message.classList.add(processedClass)
+    gotNewMessage = true
+  })
+
+  if (gotNewMessage) {
+    console.log("new message")
+    playBell()
   }
+}
 
-  function chatSoundAlert() {
-    let gotNewMessage = false
+function playBell() {
+  var audioformsg = new Audio()
+  audioformsg.src = bellSoundUrl
+  audioformsg.autoplay = true
+}
 
-    const messages = document.querySelectorAll(".chat-line__message")
-    messages.forEach(message => {
-      if (message.classList.contains(processedClass))
-        return
-
-      message.classList.add(processedClass)
-      gotNewMessage = true
-    })
-
-    if (gotNewMessage) {
-      console.log("new message")
-      playBell()
-    }
-  }
-
-  function playBell() {
-    var audioformsg = new Audio()
-    audioformsg.src = bellSoundUrl
-    audioformsg.autoplay = true
-  }
-
-  intervalHandle = setInterval(mainLoop, chatPollDelay)
-})()
+intervalHandle = setInterval(mainLoop, chatPollDelay)
