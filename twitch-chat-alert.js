@@ -10,6 +10,7 @@
 (function() {
   const processedClass = ".pancake-processed"
   const myChannelUrl = "https://www.twitch.tv/pancakesummer"
+  const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
 
   let intervalHandle = null
   function mainLoop() {
@@ -40,7 +41,7 @@
 
   function playBell() {
     var audioformsg = new Audio()
-    audioformsg.src = 'https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3'
+    audioformsg.src = bellSoundUrl
     audioformsg.autoplay = true
   }
 
