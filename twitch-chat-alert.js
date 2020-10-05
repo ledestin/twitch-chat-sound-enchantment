@@ -7,12 +7,24 @@
 // @include      http*://www.twitch.tv/pancakesummer
 // ==/UserScript==
 
+const debug_flag = true
+
 const processedClass = ".pancake-processed"
 const myChannelUrl = "https://www.twitch.tv/pancakesummer"
 const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
 const chatPollDelay = 1000
+const debug = debug_flag ? console.log : noop
 
 let intervalHandle = null
+
+function setupMainLoopToRun() {
+  if (intervalHandle)
+    return
+
+  debug("Setting up %s", GM.info.script.name)
+  intervalHandle = setInterval(mainLoop, chatPollDelay)
+}
+
 function mainLoop() {
   if (document.location.href !== myChannelUrl) {
     return
@@ -20,6 +32,8 @@ function mainLoop() {
 
   chatSoundAlert()
 }
+
+function noop(...args) { }
 
 function chatSoundAlert() {
   let gotNewMessage = false
@@ -45,4 +59,6 @@ function playBell() {
   audioformsg.autoplay = true
 }
 
-intervalHandle = setInterval(mainLoop, chatPollDelay)
+window.addEventListener('load', (event) => {
+  setupMainLoopToRun()
+});
