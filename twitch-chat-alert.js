@@ -1,10 +1,10 @@
 // ==UserScript==
-// @name     Twitch Chat Message Alerts
+// @name     Twitch Chat Sound Enchancement
 // @description Play sound, when there are new messages on your Twitch channel
 // @namespace https://rubyclarity.com
 // @version  1
 // @grant    none
-// @include      http*://www.twitch.tv/pancakesummer
+// @include      http*://www.twitch.tv/*
 // ==/UserScript==
 
 const debug_flag = true
@@ -31,10 +31,17 @@ function setupMainLoopToRun() {
   intervalHandle = setInterval(mainLoop, chatPollDelay)
 }
 
+function isOnMyChannel() {
+  return openChannelHref() === window.location.href
+}
+
+function openChannelHref() {
+  return document.querySelector('.channel-info-content a.tw-interactive')?.href
+}
+
 function mainLoop() {
-  if (document.location.href !== myChannelUrl) {
+  if (!isOnMyChannel())
     return
-  }
 
   chatSoundAlert()
 }
