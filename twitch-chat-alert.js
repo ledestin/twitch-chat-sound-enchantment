@@ -7,6 +7,8 @@
 // @include      http*://www.twitch.tv/*
 // ==/UserScript==
 
+// You are supposed to edit myChannelName to the channel you want to emit sound
+// on new chat messages.
 const myChannelName = "pancakesummer"
 const debug_flag = true
 
