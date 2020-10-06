@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name     Twitch Chat Sound Enchancement
+// @name     Twitch Chat Sound Enchantment
 // @description Play sound, when there are new messages on your Twitch channel
 // @namespace https://rubyclarity.com
 // @version  1
