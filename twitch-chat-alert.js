@@ -9,7 +9,7 @@
 
 const debug_flag = true
 
-const processedClass = ".pancake-processed"
+const processedClass = "pancake-processed"
 const myChannelUrl = "https://www.twitch.tv/pancakesummer"
 const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
 const chatPollDelay = 1000
@@ -38,11 +38,8 @@ function noop(...args) { }
 function chatSoundAlert() {
   let gotNewMessage = false
 
-  const messages = document.querySelectorAll(".chat-line__message")
+  const messages = document.querySelectorAll(`.chat-line__message:not(.${processedClass})`)
   messages.forEach(message => {
-    if (message.classList.contains(processedClass))
-      return
-
     message.classList.add(processedClass)
     gotNewMessage = true
   })
