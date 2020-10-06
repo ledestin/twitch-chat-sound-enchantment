@@ -7,10 +7,11 @@
 // @include      http*://www.twitch.tv/*
 // ==/UserScript==
 
+const myChannelName = "pancakesummer"
 const debug_flag = true
 
 const processedClass = "pancake-processed"
-const myChannelUrl = "https://www.twitch.tv/pancakesummer"
+const myChannelUrl = `https://www.twitch.tv/${myChannelName}`
 const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
 const chatPollDelay = 1000
 const debug = debug_flag ? console.log : noop
@@ -32,7 +33,7 @@ function setupMainLoopToRun() {
 }
 
 function isOnMyChannel() {
-  return openChannelHref() === window.location.href
+  return myChannelUrl === window.location.href
 }
 
 function openChannelHref() {
