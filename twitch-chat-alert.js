@@ -17,6 +17,12 @@ const debug = debug_flag ? console.log : noop
 
 let intervalHandle = null
 
+function main() {
+  window.addEventListener('load', (event) => {
+    setupMainLoopToRun()
+  })
+}
+
 function setupMainLoopToRun() {
   if (intervalHandle)
     return
@@ -56,6 +62,4 @@ function playBell() {
   audioformsg.autoplay = true
 }
 
-window.addEventListener('load', (event) => {
-  setupMainLoopToRun()
-});
+main()
