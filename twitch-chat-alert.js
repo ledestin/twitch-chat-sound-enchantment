@@ -14,7 +14,7 @@
 const myChannelName = "pancakesummer"
 const debug_flag = true
 
-const processedClass = "pancake-processed"
+const processedClass = "chat-sound-enchantment-processed"
 const myChannelUrl = `https://www.twitch.tv/${myChannelName}`
 const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
 const chatPollDelay = 1000
