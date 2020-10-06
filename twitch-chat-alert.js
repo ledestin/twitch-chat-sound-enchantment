@@ -3,7 +3,7 @@
 // @description Play sound, when there are new messages on your Twitch channel
 // @namespace https://rubyclarity.com
 // @version  1
-// @supportURL https://github.com/ledestin/twitch-chat-alert/issues
+// @supportURL https://github.com/ledestin/twitch-chat-sound-enchantment/issues
 // @author Dmitry Maksyoma (https://twitter.com/oledestin)
 // @grant    none
 // @include      http*://www.twitch.tv/*
