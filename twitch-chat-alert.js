@@ -6,26 +6,50 @@
 // @supportURL https://github.com/ledestin/twitch-chat-sound-enchantment/issues
 // @author Dmitry Maksyoma (https://twitter.com/oledestin)
 // @grant    none
+// @require https://cdn.jsdelivr.net/npm/cookies-js@1.2.3/dist/cookies.min.js
 // @include      http*://www.twitch.tv/*
 // ==/UserScript==
 
-// You are supposed to edit myChannelName to the channel you want to emit sound
-// on new chat messages.
-const myChannelName = "pancakesummer"
 const debug_flag = true
 
 const processedClass = "chat-sound-enchantment-processed"
-const myChannelUrl = `https://www.twitch.tv/${myChannelName}`
 const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
 const chatPollDelay = 1000
 const debug = debug_flag ? console.log : noop
+const info = console.log
 
+let currentTwitchUser
 let intervalHandle = null
 
 function main() {
+  currentTwitchUser = fetchCurrentTwitchUser()
+  if (!currentTwitchUser)
+    return
+
   window.addEventListener('load', (event) => {
     setupMainLoopToRun()
   })
+}
+
+function myChannelUrl() {
+  return `https://www.twitch.tv/${currentTwitchUser}`
+}
+
+function fetchCurrentTwitchUser() {
+  const twitchUserCookie = Cookies.get('twilight-user')
+
+  if (!twitchUserCookie) {
+    info("couldn't detect Twitch user, please login first")
+    return
+  }
+
+  try {
+    const { login } = JSON.parse(twitchUserCookie)
+    return login
+  } catch {
+    info("failed to parse Twitch cookie")
+    return
+  }
 }
 
 function setupMainLoopToRun() {
@@ -37,7 +61,7 @@ function setupMainLoopToRun() {
 }
 
 function isOnMyChannel() {
-  return myChannelUrl === window.location.href
+  return myChannelUrl() === window.location.href
 }
 
 function openChannelHref() {
