@@ -13,6 +13,7 @@
 const debug_flag = true
 
 const processedClass = "chat-sound-enchantment-processed"
+const newMessageSelector = `.chat-line__message:not(.${processedClass})`
 const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
 const chatPollDelay = 1000
 const debug = debug_flag ? console.log : noop
@@ -77,16 +78,20 @@ function mainLoop() {
 
 function noop(...args) { }
 
-function chatSoundAlert() {
-  let gotNewMessage = false
+function newMessages() {
+  return document.querySelectorAll(newMessageSelector)
+}
 
-  const messages = document.querySelectorAll(`.chat-line__message:not(.${processedClass})`)
+function chatSoundAlert() {
+  let newMessageFound = false
+
+  const messages = newMessages()
   messages.forEach(message => {
     message.classList.add(processedClass)
-    gotNewMessage = true
+    newMessageFound = true
   })
 
-  if (gotNewMessage) {
+  if (newMessageFound) {
     debug("new message")
     playBell()
   }
