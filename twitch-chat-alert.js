@@ -14,6 +14,7 @@
 const debug_flag = true
 
 /* global _, Cookies, GM */
+/* eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }] */
 const processedClass = "chat-sound-enchantment-processed"
 const newMessageSelector = `.chat-line__message:not(.${processedClass})`
 const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
@@ -34,7 +35,7 @@ function main() {
   if (!currentTwitchUser)
     return
 
-  window.addEventListener('load', (event) => {
+  window.addEventListener('load', (_event) => {
     setupMainLoopToRun()
   })
 }
@@ -72,10 +73,6 @@ function isOnMyChannel() {
   return myChannelUrl() === window.location.href
 }
 
-function openChannelHref() {
-  return document.querySelector('.channel-info-content a.tw-interactive')?.href
-}
-
 function mainLoop() {
   if (!isOnMyChannel())
     return
@@ -83,7 +80,7 @@ function mainLoop() {
   watchChatAndPlayBellOnNewMessages()
 }
 
-function noop(...args) { }
+function noop(..._args) { }
 
 function fetchNewMessages() {
   return document.querySelectorAll(newMessageSelector)
