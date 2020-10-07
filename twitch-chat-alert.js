@@ -13,6 +13,7 @@
 
 const debug_flag = true
 
+/* global _, Cookies, GM */
 const processedClass = "chat-sound-enchantment-processed"
 const newMessageSelector = `.chat-line__message:not(.${processedClass})`
 const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
