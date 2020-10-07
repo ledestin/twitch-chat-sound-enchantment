@@ -73,28 +73,29 @@ function mainLoop() {
   if (!isOnMyChannel())
     return
 
-  chatSoundAlert()
+  watchChatAndPlayBellOnNewMessages()
 }
 
 function noop(...args) { }
 
-function newMessages() {
+function fetchNewMessages() {
   return document.querySelectorAll(newMessageSelector)
 }
 
-function chatSoundAlert() {
-  let newMessageFound = false
-
-  const messages = newMessages()
-  messages.forEach(message => {
+function markNewMessagesAsProcessed(newMessages) {
+  newMessages.forEach(message => {
     message.classList.add(processedClass)
-    newMessageFound = true
   })
+}
 
-  if (newMessageFound) {
-    debug("new message")
-    playBell()
-  }
+function watchChatAndPlayBellOnNewMessages() {
+  const newMessages = fetchNewMessages()
+  if (newMessages.length === 0)
+    return
+
+  markNewMessagesAsProcessed(newMessages)
+  debug(`${newMessages.length} new message(s) found`)
+  playBell()
 }
 
 function playBell() {
