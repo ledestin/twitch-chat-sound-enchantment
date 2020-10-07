@@ -1,0 +1,12 @@
+{
+  "name": "twitch-chat-enchantment",
+  "version": "1.0.0",
+  "description": "Play sound on new chat messages",
+  "main": "index.js",
+  "repository": "git@github.com:ledestin/twitch-chat-sound-enchantment.git",
+  "author": "Dmitry Maksyoma <ledestin@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.10.0"
+  }
+}
