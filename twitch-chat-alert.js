@@ -7,6 +7,7 @@
 // @author Dmitry Maksyoma (https://twitter.com/oledestin)
 // @grant    none
 // @require https://cdn.jsdelivr.net/npm/cookies-js@1.2.3/dist/cookies.min.js
+// @require https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js
 // @include      http*://www.twitch.tv/*
 // ==/UserScript==
 
@@ -16,8 +17,13 @@ const processedClass = "chat-sound-enchantment-processed"
 const newMessageSelector = `.chat-line__message:not(.${processedClass})`
 const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
 const chatPollDelay = 1000
+const soundDelay = 3000
 const debug = debug_flag ? console.log : noop
 const info = console.log
+const debouncedPlayBell= _.debounce(playBell, soundDelay, {
+  'leading': true,
+  'trailing': true
+})
 
 let currentTwitchUser
 let intervalHandle = null
@@ -95,7 +101,7 @@ function watchChatAndPlayBellOnNewMessages() {
 
   markNewMessagesAsProcessed(newMessages)
   debug(`${newMessages.length} new message(s) found`)
-  playBell()
+  debouncedPlayBell()
 }
 
 function playBell() {
