@@ -8,5 +8,9 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^7.10.0"
+  },
+  "dependencies": {
+    "eslint-config-prettier": "^6.12.0",
+    "prettier-eslint": "^11.0.0"
   }
 }
