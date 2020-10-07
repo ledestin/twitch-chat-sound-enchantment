@@ -12,6 +12,7 @@
 
 const debug_flag = true
 
+const chatSelector = ".chat-scrollable-area__message-container"
 const processedClass = "chat-sound-enchantment-processed"
 const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
 const chatPollDelay = 1000
@@ -27,7 +28,8 @@ function main() {
     return
 
   window.addEventListener('load', (event) => {
-    setupMainLoopToRun()
+    // setupMainLoopToRun()
+    setupChatObserver()
   })
 }
 
@@ -50,6 +52,24 @@ function fetchCurrentTwitchUser() {
     info("failed to parse Twitch cookie")
     return
   }
+}
+
+function setupChatObserver() {
+  const chatNode = document.querySelector(chatSelector)
+  const config = { attributes: false, childList: true, subtree: false }
+
+  const callback = function(mutationsList, observer) {
+    if (!isOnMyChannel())
+      return
+
+    for(const mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        playBell()
+      }
+    }
+  }
+  const observer = new MutationObserver(callback);
+  observer.observe(chatNode, config)
 }
 
 function setupMainLoopToRun() {
