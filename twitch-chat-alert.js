@@ -23,8 +23,6 @@ const newMessageSelector = `.chat-line__message:not(.${processedMessageClass})`
 const bellSoundUrl = "https://raw.githubusercontent.com/ledestin/twitch-chat-sound-enchantment/main/sounds/bell-candle-damper.mp3"
 const chatPollDelay = 1000
 const soundDelay = 3000
-const debug = debug_flag ? console.log : noop
-const info = console.log
 const debouncedPlayBell= _.debounce(playBell, soundDelay, {
   'leading': true,
   'trailing': true
@@ -53,7 +51,7 @@ class Twitch {
     const twitchUserCookie = Cookies.get('twilight-user')
 
     if (!twitchUserCookie) {
-      info("couldn't detect Twitch user, please login first")
+      logger.info("couldn't detect Twitch user, please login first")
       return
     }
 
@@ -61,16 +59,21 @@ class Twitch {
       const { login } = JSON.parse(twitchUserCookie)
       return login
     } catch {
-      info("failed to parse Twitch cookie")
+      logger.info("failed to parse Twitch cookie")
       return
     }
   }
 }
 
-let twitch= new Twitch()
+const logger = {
+  debug: debug_flag ? console.log : noop,
+  info: console.log
+}
+
+let twitch = new Twitch()
 
 function main() {
-  debug("Setting up %s", GM.info.script.name)
+  logger.debug("Setting up %s", GM.info.script.name)
 
   if (!twitch.isLoggedIn())
     return
@@ -103,7 +106,7 @@ function watchChatAndPlayBellOnNewMessages() {
     return
 
   markNewMessagesAsProcessed(newMessages)
-  debug(`${newMessages.length} new message(s) found`)
+  logger.debug(`${newMessages.length} new message(s) found`)
   debouncedPlayBell()
 }
 
