@@ -9,6 +9,8 @@
 // @require https://cdn.jsdelivr.net/npm/cookies-js@1.2.3/dist/cookies.min.js
 // @require https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js
 // @include      http*://www.twitch.tv/*
+//
+// "Bell, Candle Damper, A (H1)" by InspectorJ (www.jshaw.co.uk) of Freesound.org
 // ==/UserScript==
 
 const debug_flag = true
