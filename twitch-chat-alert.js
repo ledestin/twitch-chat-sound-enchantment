@@ -28,6 +28,7 @@ const debouncedPlayBell= _.debounce(playBell, soundDelay, {
   'trailing': true
 })
 
+// {{{1 Twitch
 class Twitch {
   constructor() {
     this.currentUser = this.fetchCurrentUser()
@@ -65,10 +66,13 @@ class Twitch {
   }
 }
 
+// {{{1 logger
+const noop = function noop(..._args) { }
 const logger = {
   debug: debug_flag ? console.log : noop,
   info: console.log
 }
+// }}}1
 
 let twitch = new Twitch()
 
@@ -84,8 +88,6 @@ function main() {
 function setupChatPolling() {
   setInterval(watchChatAndPlayBellOnNewMessages, chatPollDelay)
 }
-
-function noop(..._args) { }
 
 function fetchNewMessages() {
   return document.querySelectorAll(newMessageSelector)
