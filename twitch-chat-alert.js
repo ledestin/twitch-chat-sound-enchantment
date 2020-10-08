@@ -30,13 +30,47 @@ const debouncedPlayBell= _.debounce(playBell, soundDelay, {
   'trailing': true
 })
 
-let currentTwitchUser
+class Twitch {
+  constructor() {
+    this.currentUser = this.fetchCurrentTwitchUser()
+  }
+
+  isLoggedIn() {
+    return this.currentUser !== null
+  }
+
+  isOnMyChannel() {
+    return this.myChannelUrl() === window.location.href
+  }
+
+  myChannelUrl() {
+    return `https://www.twitch.tv/${this.currentUser}`
+  }
+
+  fetchCurrentTwitchUser() {
+    const twitchUserCookie = Cookies.get('twilight-user')
+
+    if (!twitchUserCookie) {
+      info("couldn't detect Twitch user, please login first")
+      return
+    }
+
+    try {
+      const { login } = JSON.parse(twitchUserCookie)
+      return login
+    } catch {
+      info("failed to parse Twitch cookie")
+      return
+    }
+  }
+}
+
+let twitch= new Twitch()
 
 function main() {
   debug("Setting up %s", GM.info.script.name)
 
-  currentTwitchUser = fetchCurrentTwitchUser()
-  if (!currentTwitchUser)
+  if (!twitch.isLoggedIn())
     return
 
   setupChatPolling()
@@ -44,31 +78,6 @@ function main() {
 
 function setupChatPolling() {
   setInterval(watchChatAndPlayBellOnNewMessages, chatPollDelay)
-}
-
-function myChannelUrl() {
-  return `https://www.twitch.tv/${currentTwitchUser}`
-}
-
-function fetchCurrentTwitchUser() {
-  const twitchUserCookie = Cookies.get('twilight-user')
-
-  if (!twitchUserCookie) {
-    info("couldn't detect Twitch user, please login first")
-    return
-  }
-
-  try {
-    const { login } = JSON.parse(twitchUserCookie)
-    return login
-  } catch {
-    info("failed to parse Twitch cookie")
-    return
-  }
-}
-
-function isOnMyChannel() {
-  return myChannelUrl() === window.location.href
 }
 
 function noop(..._args) { }
@@ -84,7 +93,7 @@ function markNewMessagesAsProcessed(newMessages) {
 }
 
 function watchChatAndPlayBellOnNewMessages() {
-  if (!isOnMyChannel())
+  if (!twitch.isOnMyChannel())
     return
 
   const newMessages = fetchNewMessages()
