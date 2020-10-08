@@ -32,7 +32,7 @@ const debouncedPlayBell= _.debounce(playBell, soundDelay, {
 
 class Twitch {
   constructor() {
-    this.currentUser = this.fetchCurrentTwitchUser()
+    this.currentUser = this.fetchCurrentUser()
   }
 
   isLoggedIn() {
@@ -47,7 +47,7 @@ class Twitch {
     return `https://www.twitch.tv/${this.currentUser}`
   }
 
-  fetchCurrentTwitchUser() {
+  fetchCurrenthUser() {
     const twitchUserCookie = Cookies.get('twilight-user')
 
     if (!twitchUserCookie) {
