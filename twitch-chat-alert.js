@@ -43,6 +43,8 @@ class Twitch {
     return this.myChannelUrl() === window.location.href
   }
 
+  // private
+
   myChannelUrl() {
     return `https://www.twitch.tv/${this.currentUser}`
   }
