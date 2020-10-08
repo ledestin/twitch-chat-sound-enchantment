@@ -49,7 +49,7 @@ class Twitch {
     return `https://www.twitch.tv/${this.currentUser}`
   }
 
-  fetchCurrenthUser() {
+  fetchCurrentUser() {
     const twitchUserCookie = Cookies.get('twilight-user')
 
     if (!twitchUserCookie) {
