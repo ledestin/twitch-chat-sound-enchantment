@@ -10,15 +10,16 @@
 // @require https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js
 // @include      http*://www.twitch.tv/*
 //
-// "Bell, Candle Damper, A (H1)" by InspectorJ (www.jshaw.co.uk) of Freesound.org
+// "Bell, Candle Damper, A (H1)" by InspectorJ (www.jshaw.co.uk) of
+// Freesound.org.
 // ==/UserScript==
 
 const debug_flag = true
 
 /* global _, Cookies, GM */
 /* eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }] */
-const processedClass = "chat-sound-enchantment-processed"
-const newMessageSelector = `.chat-line__message:not(.${processedClass})`
+const processedMessageClass = "chat-sound-enchantment-processed"
+const newMessageSelector = `.chat-line__message:not(.${processedMessageClass})`
 const bellSoundUrl = "https://raw.githubusercontent.com/ledestin/twitch-chat-sound-enchantment/main/sounds/bell-candle-damper.mp3"
 const chatPollDelay = 1000
 const soundDelay = 3000
@@ -90,7 +91,7 @@ function fetchNewMessages() {
 
 function markNewMessagesAsProcessed(newMessages) {
   newMessages.forEach(message => {
-    message.classList.add(processedClass)
+    message.classList.add(processedMessageClass)
   })
 }
 
