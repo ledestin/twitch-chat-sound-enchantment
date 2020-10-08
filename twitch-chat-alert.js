@@ -19,7 +19,7 @@ const debug_flag = true
 /* eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }] */
 const processedClass = "chat-sound-enchantment-processed"
 const newMessageSelector = `.chat-line__message:not(.${processedClass})`
-const bellSoundUrl = "https://emoji-cheat-sheet.campfirenow.com/sounds/bell.mp3"
+const bellSoundUrl = "https://raw.githubusercontent.com/ledestin/twitch-chat-sound-enchantment/main/sounds/bell-candle-damper.mp3"
 const chatPollDelay = 1000
 const soundDelay = 3000
 const debug = debug_flag ? console.log : noop
