@@ -31,16 +31,15 @@ const debouncedPlayBell= _.debounce(playBell, soundDelay, {
 })
 
 let currentTwitchUser
-let intervalHandle = null
 
 function main() {
+  debug("Setting up %s", GM.info.script.name)
+
   currentTwitchUser = fetchCurrentTwitchUser()
   if (!currentTwitchUser)
     return
 
-  window.addEventListener('load', (_event) => {
-    setupMainLoopToRun()
-  })
+  setInterval(mainLoop, chatPollDelay)
 }
 
 function myChannelUrl() {
@@ -62,14 +61,6 @@ function fetchCurrentTwitchUser() {
     info("failed to parse Twitch cookie")
     return
   }
-}
-
-function setupMainLoopToRun() {
-  if (intervalHandle)
-    return
-
-  debug("Setting up %s", GM.info.script.name)
-  intervalHandle = setInterval(mainLoop, chatPollDelay)
 }
 
 function isOnMyChannel() {
