@@ -39,7 +39,11 @@ function main() {
   if (!currentTwitchUser)
     return
 
-  setInterval(mainLoop, chatPollDelay)
+  setupChatPolling()
+}
+
+function setupChatPolling() {
+  setInterval(watchChatAndPlayBellOnNewMessages, chatPollDelay)
 }
 
 function myChannelUrl() {
@@ -67,13 +71,6 @@ function isOnMyChannel() {
   return myChannelUrl() === window.location.href
 }
 
-function mainLoop() {
-  if (!isOnMyChannel())
-    return
-
-  watchChatAndPlayBellOnNewMessages()
-}
-
 function noop(..._args) { }
 
 function fetchNewMessages() {
@@ -87,6 +84,9 @@ function markNewMessagesAsProcessed(newMessages) {
 }
 
 function watchChatAndPlayBellOnNewMessages() {
+  if (!isOnMyChannel())
+    return
+
   const newMessages = fetchNewMessages()
   if (newMessages.length === 0)
     return
