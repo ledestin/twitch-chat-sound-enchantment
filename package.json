@@ -7,6 +7,7 @@
   "author": "Dmitry Maksyoma <ledestin@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-import": "^2.22.1",
