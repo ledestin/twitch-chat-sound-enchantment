@@ -18,15 +18,7 @@ const debug_flag = true
 
 /* global _, Cookies, GM */
 /* eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }] */
-const processedMessageClass = "chat-sound-enchantment-processed"
-const newMessageSelector = `.chat-line__message:not(.${processedMessageClass})`
-const bellSoundUrl = "https://raw.githubusercontent.com/ledestin/twitch-chat-sound-enchantment/main/sounds/bell-candle-damper.mp3"
 const chatPollDelay = 1000
-const soundDelay = 3000
-const debouncedPlayBell= _.debounce(playBell, soundDelay, {
-  'leading': true,
-  'trailing': true
-})
 
 // {{{1 Twitch
 class Twitch {
@@ -73,6 +65,52 @@ const logger = {
   info: console.log
 }
 // }}}1
+// {{{1 ChatWatcher
+const processedMessageClass = "chat-sound-enchantment-processed"
+const newMessageSelector = `.chat-line__message:not(.${processedMessageClass})`
+const bellSoundUrl = "https://raw.githubusercontent.com/ledestin/twitch-chat-sound-enchantment/main/sounds/bell-candle-damper.mp3"
+const soundDelay = 3000
+class ChatWatcher {
+  constructor(twitch) {
+    this.twitch = twitch
+    this.debouncedPlayBell= _.debounce(this.playBell, soundDelay, {
+      'leading': true,
+      'trailing': true
+    })
+  }
+
+  watchChatAndPlayBellOnNewMessages() {
+    if (!this.twitch.isOnMyChannel())
+      return
+
+    const newMessages = this.fetchNewMessages()
+    if (newMessages.length === 0)
+      return
+
+    this.markNewMessagesAsProcessed(newMessages)
+    logger.debug(`${newMessages.length} new message(s) found`)
+    this.debouncedPlayBell()
+  }
+
+  // private
+
+  fetchNewMessages() {
+    return document.querySelectorAll(newMessageSelector)
+  }
+
+  markNewMessagesAsProcessed(newMessages) {
+    newMessages.forEach(message => {
+      message.classList.add(processedMessageClass)
+    })
+  }
+
+  playBell() {
+    var audioformsg = new Audio()
+    audioformsg.src = bellSoundUrl
+    audioformsg.autoplay = true
+  }
+}
+// }}}1
 
 let twitch = new Twitch()
 
@@ -86,36 +124,8 @@ function main() {
 }
 
 function setupChatPolling() {
-  setInterval(watchChatAndPlayBellOnNewMessages, chatPollDelay)
-}
-
-function fetchNewMessages() {
-  return document.querySelectorAll(newMessageSelector)
-}
-
-function markNewMessagesAsProcessed(newMessages) {
-  newMessages.forEach(message => {
-    message.classList.add(processedMessageClass)
-  })
-}
-
-function watchChatAndPlayBellOnNewMessages() {
-  if (!twitch.isOnMyChannel())
-    return
-
-  const newMessages = fetchNewMessages()
-  if (newMessages.length === 0)
-    return
-
-  markNewMessagesAsProcessed(newMessages)
-  logger.debug(`${newMessages.length} new message(s) found`)
-  debouncedPlayBell()
-}
-
-function playBell() {
-  var audioformsg = new Audio()
-  audioformsg.src = bellSoundUrl
-  audioformsg.autoplay = true
+  const watcher = new ChatWatcher(twitch)
+  setInterval(() => watcher.watchChatAndPlayBellOnNewMessages(), chatPollDelay)
 }
 
 main()
