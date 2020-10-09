@@ -41,7 +41,7 @@ class Twitch {
   }
 
   fetchCurrentUser() {
-    const twitchUserCookie = Cookies.get('twilight-user')
+    const twitchUserCookie = Cookies.get("twilight-user")
 
     if (!twitchUserCookie) {
       logger.info("couldn't detect Twitch user, please login first")
@@ -59,33 +59,32 @@ class Twitch {
 }
 
 // {{{1 logger
-const noop = function noop(..._args) { }
+const noop = function noop(..._args) {}
 const logger = {
   debug: debug_flag ? console.log : noop,
-  info: console.log
+  info: console.log,
 }
 // }}}1
 // {{{1 ChatWatcher
 const processedMessageClass = "chat-sound-enchantment-processed"
 const newMessageSelector = `.chat-line__message:not(.${processedMessageClass})`
-const bellSoundUrl = "https://raw.githubusercontent.com/ledestin/twitch-chat-sound-enchantment/main/sounds/bell-candle-damper.mp3"
+const bellSoundUrl =
+  "https://raw.githubusercontent.com/ledestin/twitch-chat-sound-enchantment/main/sounds/bell-candle-damper.mp3"
 const soundDelay = 3000
 class ChatWatcher {
   constructor(twitch) {
     this.twitch = twitch
-    this.debouncedPlayBell= _.debounce(this.playBell, soundDelay, {
-      'leading': true,
-      'trailing': true
+    this.debouncedPlayBell = _.debounce(this.playBell, soundDelay, {
+      leading: true,
+      trailing: true,
     })
   }
 
   watchChatAndPlayBellOnNewMessages() {
-    if (!this.twitch.isOnMyChannel())
-      return
+    if (!this.twitch.isOnMyChannel()) return
 
     const newMessages = this.fetchNewMessages()
-    if (newMessages.length === 0)
-      return
+    if (newMessages.length === 0) return
 
     this.markNewMessagesAsProcessed(newMessages)
     logger.debug(`${newMessages.length} new message(s) found`)
@@ -99,7 +98,7 @@ class ChatWatcher {
   }
 
   markNewMessagesAsProcessed(newMessages) {
-    newMessages.forEach(message => {
+    newMessages.forEach((message) => {
       message.classList.add(processedMessageClass)
     })
   }
@@ -117,8 +116,7 @@ const twitch = new Twitch()
 function main() {
   logger.debug("Setting up %s", GM.info.script.name)
 
-  if (!twitch.isLoggedIn())
-    return
+  if (!twitch.isLoggedIn()) return
 
   setupChatPolling()
 }
