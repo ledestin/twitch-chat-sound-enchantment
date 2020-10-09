@@ -14,7 +14,7 @@
 // Freesound.org.
 // ==/UserScript==
 
-const debug_flag = true
+const debugFlag = true
 
 /* global _, Cookies, GM */
 /* eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }] */
@@ -61,7 +61,7 @@ class Twitch {
 // {{{1 logger
 const noop = function noop(..._args) {}
 const logger = {
-  debug: debug_flag ? console.log : noop,
+  debug: debugFlag ? console.log : noop,
   info: console.log,
 }
 // }}}1
