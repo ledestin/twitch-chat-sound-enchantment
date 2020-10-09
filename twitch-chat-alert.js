@@ -112,7 +112,7 @@ class ChatWatcher {
 }
 // }}}1
 
-let twitch = new Twitch()
+const twitch = new Twitch()
 
 function main() {
   logger.debug("Setting up %s", GM.info.script.name)
