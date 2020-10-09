@@ -17,7 +17,6 @@
 const debugFlag = true
 
 /* global _, Cookies, GM */
-/* eslint no-unused-vars: ["error", { "argsIgnorePattern": "^_" }] */
 const chatPollDelay = 1000
 
 // {{{1 Twitch

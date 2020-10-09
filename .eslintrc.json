@@ -7,8 +7,10 @@
         "ecmaVersion": 12
     },
     "plugins": ["prettier"],
-    "extends": ["prettier"],
+    "extends": ["eslint:recommended", "prettier"],
     "rules": {
-      "prettier/prettier": "error"
+      "prettier/prettier": "error",
+      "camelcase": "error",
+      "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }]
     }
 }
