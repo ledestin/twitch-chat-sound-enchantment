@@ -65,15 +65,16 @@ const logger = {
 }
 // }}}1
 // {{{1 ChatWatcher
-const processedMessageClass = "chat-sound-enchantment-processed"
-const newMessageSelector = `.chat-line__message:not(.${processedMessageClass})`
-const bellSoundUrl =
-  "https://raw.githubusercontent.com/ledestin/twitch-chat-sound-enchantment/main/sounds/bell-candle-damper.mp3"
-const soundDelay = 3000
 class ChatWatcher {
+  static processedMessageClass = "chat-sound-enchantment-processed"
+  static newMessageSelector = `.chat-line__message:not(.${ChatWatcher.processedMessageClass})`
+  static bellSoundUrl =
+    "https://raw.githubusercontent.com/ledestin/twitch-chat-sound-enchantment/main/sounds/bell-candle-damper.mp3"
+  static soundDelay = 3000
+
   constructor(twitch) {
     this.twitch = twitch
-    this.debouncedPlayBell = _.debounce(this.playBell, soundDelay, {
+    this.debouncedPlayBell = _.debounce(this.playBell, ChatWatcher.soundDelay, {
       leading: true,
       trailing: true,
     })
@@ -93,18 +94,18 @@ class ChatWatcher {
   // private
 
   fetchNewMessages() {
-    return document.querySelectorAll(newMessageSelector)
+    return document.querySelectorAll(ChatWatcher.newMessageSelector)
   }
 
   markNewMessagesAsProcessed(newMessages) {
     newMessages.forEach((message) => {
-      message.classList.add(processedMessageClass)
+      message.classList.add(ChatWatcher.processedMessageClass)
     })
   }
 
-  playBell() {
+  playBell = () => {
     var audioformsg = new Audio()
-    audioformsg.src = bellSoundUrl
+    audioformsg.src = ChatWatcher.bellSoundUrl
     audioformsg.autoplay = true
   }
 }
