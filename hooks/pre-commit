@@ -1,0 +1,14 @@
+#!/bin/bash -e
+
+BUNDlE="dist/bundle.js"
+
+check_that_bundle_is_staged() {
+  if git diff --name-only | grep -q "$BUNDlE"; then
+    echo
+    echo "Error: $BUNDlE modified, but not staged"
+    exit 1
+  fi
+}
+
+yarn build
+check_that_bundle_is_staged
