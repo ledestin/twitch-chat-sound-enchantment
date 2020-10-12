@@ -8,5 +8,5 @@ export default {
       _: "_",
     },
   },
-  treeshake: false
+  treeshake: false,
 }
