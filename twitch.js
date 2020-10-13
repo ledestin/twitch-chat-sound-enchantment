@@ -1,7 +1,6 @@
 /* globals Cookies */
 import logger from "./logger"
 
-// {{{1 Twitch
 class Twitch {
   constructor() {
     this.currentUser = this.fetchCurrentUser()

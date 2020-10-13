@@ -1,7 +1,6 @@
 /* globals _ */
 import logger from "./logger"
 
-// {{{1 ChatWatcher
 class ChatWatcher {
   static processedMessageClass = "chat-sound-enchantment-processed"
   static newMessageSelector = `.chat-line__message:not(.${ChatWatcher.processedMessageClass})`
@@ -45,6 +44,5 @@ class ChatWatcher {
     audioformsg.src = ChatWatcher.bellSoundUrl
   }
 }
-// }}}1
 
 export default ChatWatcher

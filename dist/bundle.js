@@ -16,7 +16,6 @@
 
 const debugFlag = true;
 
-// {{{1 logger
 const noop = function noop(..._args) {};
 const logger = {
   debug: debugFlag ? console.log : noop,
@@ -25,7 +24,6 @@ const logger = {
 
 /* globals Cookies */
 
-// {{{1 Twitch
 class Twitch {
   constructor() {
     this.currentUser = this.fetchCurrentUser();
@@ -65,7 +63,6 @@ class Twitch {
 
 /* globals _ */
 
-// {{{1 ChatWatcher
 class ChatWatcher {
   static processedMessageClass = "chat-sound-enchantment-processed"
   static newMessageSelector = `.chat-line__message:not(.${ChatWatcher.processedMessageClass})`
