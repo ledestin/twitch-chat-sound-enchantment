@@ -117,10 +117,9 @@ const chatPollDelay = 1000;
 const twitch = new Twitch();
 
 function main() {
-  logger.debug("Setting up %s", GM.info.script.name);
-
   if (!twitch.isLoggedIn()) return
 
+  logger.debug("Setting up %s", GM.info.script.name);
   setupChatPolling();
 }
 
