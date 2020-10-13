@@ -43,7 +43,6 @@ class ChatWatcher {
   playBell = () => {
     var audioformsg = new Audio()
     audioformsg.src = ChatWatcher.bellSoundUrl
-    audioformsg.autoplay = true
   }
 }
 // }}}1
