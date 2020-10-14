@@ -40,8 +40,8 @@ class ChatWatcher {
   }
 
   playBell = () => {
-    var audioformsg = new Audio()
-    audioformsg.src = ChatWatcher.bellSoundUrl
+    const bell = new Audio(ChatWatcher.bellSoundUrl)
+    bell.play()
   }
 }
 
