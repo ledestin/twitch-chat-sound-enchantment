@@ -1,11 +1,11 @@
 import "./header"
 
+import ChatWatcher from "./ChatWatcher"
+import Twitch from "./twitch"
+import logger from "./logger"
+
 /* global GM */
 const chatPollDelay = 1000
-
-import Twitch from "./twitch"
-import ChatWatcher from "./ChatWatcher"
-import logger from "./logger"
 
 const twitch = new Twitch()
 
