@@ -1,1 +1,3 @@
 let g:ale_enable = 1
+
+autocmd BufWritePost *.js !yarn build
