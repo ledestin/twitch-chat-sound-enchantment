@@ -14,6 +14,7 @@ class ChatWatcher {
       leading: true,
       trailing: true,
     })
+    this.bell = new Audio(ChatWatcher.bellSoundUrl)
   }
 
   watchChatAndPlayBellOnNewMessages() {
@@ -40,8 +41,7 @@ class ChatWatcher {
   }
 
   playBell = () => {
-    const bell = new Audio(ChatWatcher.bellSoundUrl)
-    bell.play()
+    this.bell.play()
   }
 }
 
