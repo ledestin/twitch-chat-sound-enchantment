@@ -1,4 +1,4 @@
-# twitch-chat-alert
+# Twitch Chat Sound Enchantment
 Play a sound, when chat messages appear in your Twitch channel.
 
 The sound will play
@@ -11,7 +11,7 @@ Thus, not every message will trigger a sound.
 # How to use
 
 1. Install [Tampermonkey](https://www.tampermonkey.net/) or
-   [Greasemonkey]()https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/).
+   [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/).
 1. Login to your Twitch account.
 1. Install the script from
    https://greasyfork.org/en/scripts/413789-twitch-chat-sound-enchantment
