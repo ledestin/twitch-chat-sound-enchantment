@@ -6,7 +6,7 @@ The sound will play
   * If there are more messages in a short timeframe, sound will also play after
     the last message.
 
-Thus, not every message will trigger a sound.
+Thus, not every message will trigger a sound, as that'd be annoying.
 
 # How to use
 
